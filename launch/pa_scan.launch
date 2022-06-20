@@ -2,7 +2,7 @@
 <launch>
   <arg name="robot_ip" default="172.16.0.2" />
   <arg name="load_gripper" default="false" />
-  <arg name="internal_controller" default="cartesian_impedance" />
+  <arg name="internal_controller" default="joint_impedance" />
 
   <rosparam param="franka_control/internal_controller">$(arg internal_controller)</rosparam>
 
@@ -27,5 +27,8 @@
   <node pkg="rv_panda_driver" type="panda_commander" name="arm" output="screen">
     <rosparam command="load" file="$(find rv_panda_driver)/config/config.yaml" /> 
   </node>
+
+  <!-- publish franka state -->
+  <node pkg="franka_pa" type="pub_franka_state.py" name="pub_franka_state" output="screen" />
 
 </launch>
